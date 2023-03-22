@@ -1,0 +1,8 @@
+body {
+    background-image: url("../public/images/fone.jpg");
+    background-size: 120%;
+    background-repeat: no-repeat;
+    color: rgb(20, 20, 20) !important;
+    height: 100%;
+    width: 100%;
+}
