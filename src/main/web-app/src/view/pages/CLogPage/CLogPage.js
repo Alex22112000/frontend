@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import CLogPanel from "../../components/Elements/CLogPanel/CLogPanel";
 import CButton from "../../components/UI/CButton/CButton";
 import { UserContext } from '../../contexts/user';
-import AuthService from '../../services/authService';
+import AuthService from '../../../model/services/authService';
 
 class CLogPage extends React.Component {
     state = {

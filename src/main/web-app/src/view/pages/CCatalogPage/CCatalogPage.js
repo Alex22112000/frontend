@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import CBasketPanel from '../../components/Elements/CBasketPanel/CBasketPanel';
 import CCatElement from '../../components/Elements/CCatElement/CCatElement';
 import CButton from "../../components/UI/CButton/CButton";
-import CatalogService from '../../services/catalogService';
+import CatalogService from '../../../model/services/catalogService';
 import "./CCatalogPage.css"
 
 class CLogPage extends React.Component {

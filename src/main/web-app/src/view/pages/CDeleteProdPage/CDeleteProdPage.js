@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 import CTextBar from '../../components/UI/CTextBar/CTextBar'
 import CButton from '../../components/UI/CButton/CButton'
-import CatalogService from '../../services/catalogService';
+import CatalogService from '../../../model/services/catalogService';
 import "./CDeleteProdPage.css"
 
 class CDeleteProdPage extends React.Component {

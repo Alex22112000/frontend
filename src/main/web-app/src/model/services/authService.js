@@ -1,4 +1,4 @@
-import config from '../configs/config.json'
+import config from '../../view/configs/config.json'
 
 class AuthService {
     static async signIn(login, password) {
