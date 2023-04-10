@@ -9,7 +9,7 @@ class AuthService {
         });
 
         if(response.ok){
-            response.json().then((token) => {
+            await response.json().then((token) => {
                 AuthService.save(login, token);
             });
             return;
@@ -25,7 +25,10 @@ class AuthService {
             body: JSON.stringify([login, password]),
         });
 
+        console.log(response);
+
         if(response.ok){
+            // console.log(response.json())
             response.json().then((token) => {
                 AuthService.save(login, token);
             });

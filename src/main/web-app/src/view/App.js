@@ -3,10 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import CLogPage from "./pages/CLogPage/CLogPage";
 import CRegPage from "./pages/CRegPage/CRegPage";
 import CCatalogPAge from "./pages/CCatalogPage/CCatalogPage";
-
 import CAddProdPage from "./pages/CAddProdPage/CAddProdPage";
 import CDeleteProdPage from "./pages/CDeleteProdPage/CDeleteProdPage";
+
 import TestPage from "./pages/TestPage";
+import Test from "./pages/Test";
 
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
         <Route path="/products/add"><CAddProdPage /></Route>
         <Route path="/products/delete"><CDeleteProdPage /></Route>
         <Route path="/test"><TestPage /></Route>
+        <Route path="/page"><Test /></Route>
       </Switch>
     )
   }

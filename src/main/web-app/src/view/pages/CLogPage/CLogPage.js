@@ -20,11 +20,14 @@ class CLogPage extends React.Component {
             password: this.state.password
         })
 
-        this.props.history.push("/catalog")
+
+        
        })
        .catch(() => {
         console.log("error");
        })
+
+       this.props.history.push("/catalog")
     }
 
 

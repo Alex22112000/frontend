@@ -5,7 +5,7 @@ import Store from "./Store";
 const API_URL = "ws://localhost:8080/WebProject-1/chat"
 
 class ChatService extends Store{
-    constructor(){
+    /*constructor(){
         super();
         this.connection = new WebSocket(API_URL);
         this.connection.onopen = () => {
@@ -15,7 +15,7 @@ class ChatService extends Store{
             console.log(JSON.parse(event.data));
             this._emit(JSON.parse(event.data));
         }
-    }
+    }*/
 
     sendMessage(text){
         console.log("send: " + text);
@@ -28,10 +28,15 @@ class ChatService extends Store{
     close(){
         this.connection.close(1000, "Complete");
     }
-/*
+
     open(){
-        this.username = AuthService.getLogin()
-    }*/
+        
+        this.username = AuthService.getLogin();
+        this.connection = new WebSocket(API_URL + "/" + this.username);
+        this.connection.onmessage = (event) => {
+            this._emit(JSON.parse(event.data));
+        };
+    }
 }
 
 class ChatServiceFactory{

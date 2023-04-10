@@ -16,11 +16,10 @@ class CRegPage extends React.Component {
 
 
     register = async () => {
-        const isOk = await AuthService.signUp({
-            login: this.state.login,
-            password: this.state.password
-        })
-
+        const isOk = await AuthService.signUp(
+            this.state.login,
+            this.state.password
+        )
         if (isOk) {
             this.props.history.push("/")
         }

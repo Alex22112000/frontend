@@ -4,6 +4,7 @@ import CBasketPanel from '../../components/Elements/CBasketPanel/CBasketPanel';
 import CCatElement from '../../components/Elements/CCatElement/CCatElement';
 import CButton from "../../components/UI/CButton/CButton";
 import CatalogService from '../../../model/services/catalogService';
+import Chat from "../../components/func/Chat";
 import "./CCatalogPage.css"
 
 class CLogPage extends React.Component {
@@ -54,6 +55,9 @@ class CLogPage extends React.Component {
                         //console.log(product.product_name + product.product_cost)
                         return <CCatElement product={product} key={product.product_name + product.product_cost} onClick={() => this.addToCart(product)} />
                     })}
+                </div>
+                <div style={{float: "right"}}>
+                    <Chat></Chat>
                 </div>
             </>
         )
