@@ -1,59 +1,47 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom'
+import React, { useState } from 'react';
+import { withRouter, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import CLogPanel from "../../components/Elements/CLogPanel/CLogPanel";
 import CButton from "../../components/UI/CButton/CButton";
-import { UserContext } from '../../contexts/user';
 import AuthService from '../../../model/services/authService';
+import { setUser } from '../../../redux/user/creators';
 
-class CLogPage extends React.Component {
-    state = {
-        password: "",
-        login: "",
+function CLogPage() {
+    const history = useHistory()
+    const dispatch = useDispatch()
+    const [password, setPassword] = useState("")
+    const [login, setLogin] = useState("")
+
+    async function auth() {
+        await AuthService.signIn(login, password)
+            .then(() => {
+                console.log("ok");
+                dispatch(setUser({
+                    login,
+                    password
+                }));
+                history.push("/catalog");
+            })
+            .catch(() => {
+                console.log("error");
+            })
     }
 
-    auth = async () => {
-       await AuthService.signIn(this.state.login, this.state.password)
-       .then(() => {
-        console.log("ok");
-        this.context.setUser({
-            login: this.state.login,
-            password: this.state.password
-        })
+    const toRegistration = () => history.push("/register")
 
-
-        
-       })
-       .catch(() => {
-        console.log("error");
-       })
-
-       this.props.history.push("/catalog")
+    const onLogPanelChange = ({ password, login }) => {
+        setPassword(password)
+        setLogin(login)
     }
 
-
-    toRegistration = () => {
-        this.props.history.push("/register")
-    }
-
-    onLogPanelChange = ({ password, login }) => {
-        this.setState({
-            password,
-            login
-        })
-    }
-
-    render() {
-        return (
-            <div align="center" className="lpage">
-                <CLogPanel onChange={this.onLogPanelChange} />
-                <CButton onClick={this.auth}>Войти</CButton>
-                <br />
-                <CButton onClick={this.toRegistration}>Регистрация</CButton>
-            </div>
-        )
-    }
+    return (
+        <div align="center" className="lpage">
+            <CLogPanel onChange={onLogPanelChange} />
+            <CButton onClick={auth}>Войти</CButton>
+            <br />
+            <CButton onClick={toRegistration}>Регистрация</CButton>
+        </div>
+    )
 }
 
-CLogPage.contextType = UserContext
-
-export default withRouter(CLogPage)
+export default CLogPage

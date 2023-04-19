@@ -7,13 +7,13 @@ import AuthService from '../../../model/services/authService';
 class CRegPage extends React.Component {
     state = {
         password: "",
-        login: ""
+        login: "",
+        message: ""
     }
 
     toAuth = () => {
         this.props.history.push("/")
     }
-
 
     register = async () => {
         const isOk = await AuthService.signUp(
@@ -23,12 +23,16 @@ class CRegPage extends React.Component {
         if (isOk) {
             this.props.history.push("/")
         }
+
+        this.setState({
+            message: "Регистрация успешна."
+        })
     }
 
     onRegPanelChange = ({ password, login }) => {
         this.setState({
             password,
-            login
+            login,
         })
     }
 
@@ -40,6 +44,7 @@ class CRegPage extends React.Component {
                 <CButton onClick={this.register}>Зарегистрироваться</CButton>
                 <br />
                 <CButton onClick={this.toAuth}>Назад</CButton>
+                {this.state.message && <><br />{this.state.message}</>}
             </div>
         )
     }

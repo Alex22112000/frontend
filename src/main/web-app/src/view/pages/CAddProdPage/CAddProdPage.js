@@ -34,7 +34,7 @@ class CAddProdPage extends React.Component {
         })
     }
 
-
+    
     back = () => {
         this.props.history.push("/catalog")
     }

@@ -6,6 +6,8 @@ import CCatalogPAge from "./pages/CCatalogPage/CCatalogPage";
 import CAddProdPage from "./pages/CAddProdPage/CAddProdPage";
 import CDeleteProdPage from "./pages/CDeleteProdPage/CDeleteProdPage";
 
+import SettingPage from "./pages/SettingPage/SettingPage";
+
 import TestPage from "./pages/TestPage";
 import Test from "./pages/Test";
 
@@ -19,6 +21,9 @@ class App extends React.Component {
         <Route path="/catalog"><CCatalogPAge /></Route>
         <Route path="/products/add"><CAddProdPage /></Route>
         <Route path="/products/delete"><CDeleteProdPage /></Route>
+        
+        <Route path="/setting"><SettingPage /></Route>
+
         <Route path="/test"><TestPage /></Route>
         <Route path="/page"><Test /></Route>
       </Switch>

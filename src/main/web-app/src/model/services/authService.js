@@ -11,6 +11,7 @@ class AuthService {
         if(response.ok){
             await response.json().then((token) => {
                 AuthService.save(login, token);
+                AuthService.setPassword(password);
             });
             return;
         } else {
@@ -31,8 +32,39 @@ class AuthService {
             // console.log(response.json())
             response.json().then((token) => {
                 AuthService.save(login, token);
+                AuthService.setPassword(password);
             });
             return;
+        } else {
+            return Promise.reject();
+        }
+    }
+
+    static async changePassword(login, newPassword){
+        const response = await fetch(config.apiUrl + "/api/changePassword", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            body: JSON.stringify([login, newPassword]),
+        });
+        if(response.ok){
+            response.json().then((token) => {
+                AuthService.save(login, token);
+                AuthService.setPassword(newPassword);
+            });
+            return;
+        } else {
+            return Promise.reject();
+        }
+    }
+
+    static async deleteAccount(){
+        const response = await fetch(config.apiUrl + "/api/deleteUser", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            body: JSON.stringify([AuthService.getLogin()]),
+        });
+        if(response.ok){
+            return Promise.resolve();
         } else {
             return Promise.reject();
         }
@@ -41,6 +73,14 @@ class AuthService {
     static save(login, token){
         localStorage.setItem('login', login);
         localStorage.setItem('token', token);
+    }
+
+    static setPassword(password){
+        localStorage.setItem('password', password);
+    }
+
+    static getPassword(){
+        return localStorage.getItem('password');
     }
 
     static getLogin(){

@@ -38,6 +38,10 @@ class CLogPage extends React.Component {
         this.props.history.push("/products/delete")
     }
 
+    settingUser = () => {
+        this.props.history.push("/setting")
+    }
+
     render() {
         return (
             <>
@@ -46,6 +50,9 @@ class CLogPage extends React.Component {
                 <br />
                 <CButton onClick={this.deleteProduct}>Удалить продукт</CButton>
 
+                <div className="setting">
+                <CButton onClick={this.settingUser}>Настройки</CButton>
+                </div>
 
                 <div className="catalog">
                     {this.state.products.map((product) => {
@@ -56,6 +63,7 @@ class CLogPage extends React.Component {
                         return <CCatElement product={product} key={product.product_name + product.product_cost} onClick={() => this.addToCart(product)} />
                     })}
                 </div>
+
                 <div style={{float: "right"}}>
                     <Chat></Chat>
                 </div>
