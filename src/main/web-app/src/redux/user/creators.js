@@ -1,22 +1,33 @@
-import { DELETE_USER, SET_USER } from "./constants.js"
+import { CHANGE_PASSWORD, LOGIN, LOGOUT } from "./constants.js"
 
-const deleteUser = () => {
+const logOut = () => {
     return {
-        type: DELETE_USER
+        type: LOGOUT
     }
 }
 
-const setUser = ({ login, password }) => {
+const logIn = ({isAuth, login, password }) => {
     return {
-        type: SET_USER,
+        type: LOGIN,
         payload: {
+            isAuth,
             login,
             password
         }
     }
 }
 
+const replacePassword = ({password}) => {
+    return {
+        type: CHANGE_PASSWORD,
+        payload: {
+            password
+        }
+    }
+}
+
 export {
-    deleteUser,
-    setUser
+    logIn,
+    logOut,
+    replacePassword
 }

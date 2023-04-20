@@ -1,7 +1,3 @@
-const SET_USER = "SET_USER"
-const DELETE_USER = "DELETE_USER"
-
-export {
-    SET_USER,
-    DELETE_USER
-}
+export const LOGIN = "LOGIN"
+export const LOGOUT = "LOGOUT"
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
