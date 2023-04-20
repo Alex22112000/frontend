@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CButton from "../../components/UI/CButton/CButton";
 import AuthService from '../../../model/services/authService';
 import "./SettingPage.css"
-import { deleteUser } from '../../../redux/user/creators'
-import { useDispatch } from 'react-redux';
+// import { deleteUser } from '../../../redux/user/creators'
+// import { useUserInfo } from '../../../mobx/user/hooks';
+import { useAuthUser, useUserInfo } from "../../../redux/hooks";
 
 
 function SettingPage(props) {
-    const dispatch = useDispatch()
-    const history = useHistory();
-
+    const navigate = useNavigate();
+    const userInfo = useUserInfo();
+    const {
+        changePassword, signOut
+    } = useAuthUser();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -19,30 +22,34 @@ function SettingPage(props) {
     return (
         <>
             <div className="panel">
-                <CButton onClick={() => setUsername(AuthService.getLogin())}>{username === "" ? "Показать имя пользователя" : username}</CButton>
+                <CButton onClick={() => setUsername(userInfo.login)}>{username === "" ? "Показать имя пользователя" : username}</CButton>
                 <br />
-                <CButton onClick={() => setPassword(AuthService.getPassword())}>{password === "" ? "Показать пароль" : password}</CButton>
+                <CButton onClick={() => setPassword(userInfo.password)}>{password === "" ? "Показать пароль" : password}</CButton>
                 <br />
                 <input type="password" placeholder='Введите новый пароль' onChange={(e) => setNewPassword(e.target.value)}></input>
-                <CButton onClick={() => AuthService.changePassword(AuthService.getLogin(), newPassword)}>{"Изменить пароль"}</CButton>
+                <CButton onClick={() => {
+                    AuthService.changePassword(userInfo.login, newPassword);
+                    changePassword(newPassword);
+                    }}>{"Изменить пароль"}</CButton>
                 <br />
                 <CButton onClick={() => {
                     //dispatch(deleteUser());
                     AuthService.deleteAccount()
                         .then(() => {
                             console.log('Аккаунт удален');
+                            signOut();
                         })
                         .catch(() => {
                             console.log('Что-то пошло не так при удалении аккаунта');
                             setMessage("Ошибка удаления аккаунта");
                         });
-                    history.push('/');
+                    navigate('/');
                 }}>Удалить аккаунт</CButton>
                 <br />
-                <CButton onClick={() => history.push('/catalog')}>Назад</CButton>
+                <CButton onClick={() => navigate('/catalog')}>Назад</CButton>
             </div >
         </>
     )
 }
 
-export default withRouter(SettingPage)
+export default SettingPage

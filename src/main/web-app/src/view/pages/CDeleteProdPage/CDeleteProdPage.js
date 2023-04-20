@@ -1,53 +1,55 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom'
+import React, { useState } from 'react';
 import CTextBar from '../../components/UI/CTextBar/CTextBar'
 import CButton from '../../components/UI/CButton/CButton'
 import CatalogService from '../../../model/services/catalogService';
+import { useNavigate } from 'react-router-dom';
 import "./CDeleteProdPage.css"
 
-class CDeleteProdPage extends React.Component {
-    state = {
+function CDeleteProdPage() {
+    const initialState = {
         name: "",
         message: ""
     }
+    const [state, setState] = useState(initialState);
+    const navigate = useNavigate();
 
-    deleteProduct = async () => {
+    const deleteProduct = async () => {
         const isOk = await CatalogService.deleteProduct({
-            name: this.state.name
+            name: state.name
         })
 
         if (!isOk) {
-            this.setState({
+            setState({
+                ...state,
                 message: "Ошибка удаления."
             })
             return
         }
 
-        this.setState({
+        setState({
+            ...state,
             message: "Продукт успешно удален."
         })
     }
 
 
-    back = () => {
-        this.props.history.push("/catalog")
+    const back = () => {
+        navigate("/catalog")
     }
 
-    render() {
-        return (
-            <ul className="panel">
-                <li className="nm">Название:<br /><CTextBar value={this.state.name} onChange={(e) => this.setState({ name: e.currentTarget.value })} /></li>
-                <br />
+    return (
+        <ul className="panel">
+            <li className="nm">Название:<br /><CTextBar value={state.name} onChange={(e) => setState({ ...state, name: e.currentTarget.value })} /></li>
+            <br />
 
-                <li className="bt"><CButton onClick={this.deleteProduct}>Удалить</CButton></li>
-                <br />
+            <li className="bt"><CButton onClick={deleteProduct}>Удалить</CButton></li>
+            <br />
 
-                <li className="btBack"><CButton onClick={this.back}>Назад</CButton></li>
+            <li className="btBack"><CButton onClick={back}>Назад</CButton></li>
 
-                <div className="message">{this.state.message && <><br /> {this.state.message}</>}</div>
-            </ul>
-        )
-    }
+            <div className="message">{state.message && <><br /> {state.message}</>}</div>
+        </ul>
+    )
 }
 
-export default withRouter(CDeleteProdPage)
+export default CDeleteProdPage

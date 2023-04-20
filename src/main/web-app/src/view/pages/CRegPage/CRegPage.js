@@ -1,53 +1,55 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom'
+import React, { useState } from 'react';
 import CRegPanel from '../../components/Elements/CRegPanel/CRegPanel';
 import CButton from "../../components/UI/CButton/CButton";
 import AuthService from '../../../model/services/authService';
+import { useNavigate } from 'react-router-dom';
 
-class CRegPage extends React.Component {
-    state = {
+function CRegPage() {
+    const initialState = {
         password: "",
         login: "",
         message: ""
     }
+    const [state, setState] = useState(initialState);
+    const navigate = useNavigate();
 
-    toAuth = () => {
-        this.props.history.push("/")
+    const toAuth = () => {
+        navigate("/");
     }
 
-    register = async () => {
+    const register = async () => {
         const isOk = await AuthService.signUp(
-            this.state.login,
-            this.state.password
+            state.login,
+            state.password
         )
         if (isOk) {
-            this.props.history.push("/")
+            toAuth()
         }
 
-        this.setState({
+        setState({
+            ...state,
             message: "Регистрация успешна."
         })
     }
 
-    onRegPanelChange = ({ password, login }) => {
-        this.setState({
-            password,
-            login,
+    const onRegPanelChange = ({ password, login }) => {
+        setState({
+            ...state,
+            password: password,
+            login: login,
         })
     }
 
-    render() {
-        return (
-            <div align="center" className="rpage">
-                <CRegPanel onChange={this.onRegPanelChange} />
+    return (
+        <div align="center" className="rpage">
+            <CRegPanel onChange={onRegPanelChange} />
 
-                <CButton onClick={this.register}>Зарегистрироваться</CButton>
-                <br />
-                <CButton onClick={this.toAuth}>Назад</CButton>
-                {this.state.message && <><br />{this.state.message}</>}
-            </div>
-        )
-    }
+            <CButton onClick={register}>Зарегистрироваться</CButton>
+            <br />
+            <CButton onClick={toAuth}>Назад</CButton>
+            {state.message && <><br />{state.message}</>}
+        </div>
+    )
 }
 
-export default withRouter(CRegPage)
+export default CRegPage;

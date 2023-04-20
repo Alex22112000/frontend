@@ -1,66 +1,69 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom'
+import React, { useState } from 'react';
 import CTextBar from '../../components/UI/CTextBar/CTextBar'
 import CButton from '../../components/UI/CButton/CButton'
 import CatalogService from '../../../model/services/catalogService';
+import { useNavigate } from 'react-router-dom';
 import "./CAddProdPage.css"
 
-class CAddProdPage extends React.Component {
-    state = {
+function CAddProdPage() {
+    const initialState = {
         name: "",
         cost: "",
         img: "",
         count: "",
         message: ""
     }
+    const [state, setState] = useState(initialState);
+    const navigate = useNavigate();
 
-    addProduct = async () => {
+    const addProduct = async () => {
         const isOk = await CatalogService.postProduct({
-            name: this.state.name,
-            cost: this.state.cost,
-            img: this.state.img,
-            count: this.state.count,
+            name: state.name,
+            cost: state.cost,
+            img: state.img,
+            count: state.count,
         })
 
         if (!isOk) {
-            this.setState({
+            setState({
+                ...state,
                 message: "Ошибка добавления в каталог."
             })
             return
         }
 
-        this.setState({
+        setState({
+            ...state,
             message: "Продукт успешно добавлен в каталог."
         })
     }
 
-    
-    back = () => {
-        this.props.history.push("/catalog")
+
+    const back = () => {
+        navigate("/catalog")
     }
 
-    render() {
-        return (
-            <ul className="panel">
-                <li>Название: <br /><CTextBar value={this.state.name} onChange={e => this.setState({ name: e.currentTarget.value })} /></li>
-                <br />
 
-                <li>Стоимость:<br /><CTextBar value={this.state.cost} onChange={e => this.setState({ cost: e.currentTarget.value })} /></li>
-                <br />
+    return (
+        <ul className="panel">
+            <li>Название: <br /><CTextBar value={state.name} onChange={e => setState({...state, name: e.currentTarget.value })} /></li>
+            <br />
 
-                <li>Ссылка на изображение:<br /><CTextBar value={this.state.img} onChange={e => this.setState({ img: e.currentTarget.value })} /></li>
-                <br />
+            <li>Стоимость:<br /><CTextBar value={state.cost} onChange={e => setState({...state, cost: e.currentTarget.value })} /></li>
+            <br />
 
-                <li>Количество:<br /><CTextBar value={this.state.count} onChange={e => this.setState({ count: e.currentTarget.value })} /></li>
-                <br />
-                <li><CButton onClick={this.addProduct}>Добавить</CButton></li>
-                <br />
+            <li>Ссылка на изображение:<br /><CTextBar value={state.img} onChange={e => setState({...state, img: e.currentTarget.value })} /></li>
+            <br />
 
-                <li><CButton onClick={this.back}>Назад</CButton></li>
-                <div>{this.state.message && <><br />{this.state.message}</>}</div>
-            </ul >
-        )
-    }
+            <li>Количество:<br /><CTextBar value={state.count} onChange={e => setState({...state, count: e.currentTarget.value })} /></li>
+            <br />
+            <li><CButton onClick={addProduct}>Добавить</CButton></li>
+            <br />
+
+            <li><CButton onClick={back}>Назад</CButton></li>
+            <div>{state.message && <><br />{state.message}</>}</div>
+        </ul >
+    )
 }
 
-export default withRouter(CAddProdPage)
+export default CAddProdPage

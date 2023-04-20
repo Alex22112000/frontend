@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import CLogPanel from "../../components/Elements/CLogPanel/CLogPanel";
 import CButton from "../../components/UI/CButton/CButton";
 import AuthService from '../../../model/services/authService';
-import { setUser } from '../../../redux/user/creators';
+// import { useAuthUser } from '../../../mobx/user/hooks';
+import { useAuthUser } from "../../../redux/hooks";
 
 
 function CLogPage() {
-    const history = useHistory();
-    const dispatch = useDispatch();
-    
+    const navigate = useNavigate();
+
     const [password, setPassword] = useState("");
     const [login, setLogin] = useState("");
     const [message, setMessage] = useState("");
+    const {
+        signIn
+    } = useAuthUser();
 
     async function auth() {
         await AuthService.signIn(login, password)
             .then(() => {
                 console.log("ok");
-                dispatch(setUser({
-                    login,
-                    password
-                }));
-                history.push("/catalog");
+                signIn(true, login, password);
+                navigate("/catalog");
             })
             .catch(() => {
                 setMessage("Неправильный логин или пароль")
@@ -31,11 +30,11 @@ function CLogPage() {
             })
     }
 
-    const toRegistration = () => history.push("/register")
+    const toRegistration = () => navigate("/register")
 
     const onLogPanelChange = ({ password, login }) => {
-        setPassword(password)
-        setLogin(login)
+        setPassword(password);
+        setLogin(login);
     }
 
     return (

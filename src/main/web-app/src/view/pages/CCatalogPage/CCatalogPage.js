@@ -1,75 +1,76 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
 import CBasketPanel from '../../components/Elements/CBasketPanel/CBasketPanel';
 import CCatElement from '../../components/Elements/CCatElement/CCatElement';
 import CButton from "../../components/UI/CButton/CButton";
 import CatalogService from '../../../model/services/catalogService';
 import Chat from "../../components/func/Chat";
+import { useNavigate } from 'react-router-dom';
 import "./CCatalogPage.css"
 
-class CLogPage extends React.Component {
-    state = {
+function CCatalogPage(props) {
+    const initialState = {
         cartProducts: [],
         products: []
     }
+    const [state, setState] = useState(initialState);
+    const navigate = useNavigate();
 
-    componentDidMount = () => {
+    useEffect(() => {
         const getData = async () => {
             const products = await CatalogService.getCatalog()
-            this.setState({
-                products
+            setState({
+                ...state,
+                products: products
             })
-        }
+        };
+        getData();
+    }, [])
 
-        getData()
-    }
-
-    addToCart = (product) => {
-        this.setState((prev) => ({
+    const addToCart = (product) => {
+        setState((prev) => ({
+            ...state,
             cartProducts: [...prev.cartProducts, product]
         }))
     }
 
-    addProduct = () => {
-        this.props.history.push("/products/add")
+    const addProduct = () => {
+        navigate("/products/add")
     }
 
-    deleteProduct = () => {
-        this.props.history.push("/products/delete")
+    const deleteProduct = () => {
+        navigate("/products/delete")
     }
 
-    settingUser = () => {
-        this.props.history.push("/setting")
+    const settingUser = () => {
+        navigate("/setting")
     }
 
-    render() {
-        return (
-            <>
-                <CBasketPanel products={this.state.cartProducts} />
-                <CButton onClick={this.addProduct}>Добавить продукт</CButton>
-                <br />
-                <CButton onClick={this.deleteProduct}>Удалить продукт</CButton>
+    return (
+        <>
+            <CBasketPanel products={state.cartProducts} />
+            <CButton onClick={addProduct}>Добавить продукт</CButton>
+            <br />
+            <CButton onClick={deleteProduct}>Удалить продукт</CButton>
 
-                <div className="setting">
-                <CButton onClick={this.settingUser}>Настройки</CButton>
-                </div>
+            <div className="setting">
+                <CButton onClick={settingUser}>Настройки</CButton>
+            </div>
 
-                <div className="catalog">
-                    {this.state.products.map((product) => {
-                        console.log(product);
-                        //console.log(product.product_name)
-                        //console.log(product.product_cost)
-                        //console.log(product.product_name + product.product_cost)
-                        return <CCatElement product={product} key={product.product_name + product.product_cost} onClick={() => this.addToCart(product)} />
-                    })}
-                </div>
+            <div className="catalog">
+                {state.products.map((product) => {
+                    console.log(product);
+                    //console.log(product.product_name)
+                    //console.log(product.product_cost)
+                    //console.log(product.product_name + product.product_cost)
+                    return <CCatElement product={product} key={product.product_name + product.product_cost} onClick={() => addToCart(product)} />
+                })}
+            </div>
 
-                <div style={{float: "right"}}>
-                    <Chat></Chat>
-                </div>
-            </>
-        )
-    }
+            <div style={{ float: "right" }}>
+                <Chat/>
+            </div>
+        </>
+    )
 }
 
-export default withRouter(CLogPage)
+export default CCatalogPage;
