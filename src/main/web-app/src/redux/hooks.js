@@ -3,11 +3,12 @@ import { logOut, logIn, replacePassword } from "./user/creators";
 
 export function useAuthUser() {
     const dispatch = useDispatch();
-    const signIn = (isAuth, login, password) => {
+    const signIn = (isAuth, login, password, role) => {
         const userInfo = {
             isAuth: isAuth,
             login: login,
-            password: password
+            password: password,
+            role: role
         };
         dispatch(logIn(userInfo));
     };

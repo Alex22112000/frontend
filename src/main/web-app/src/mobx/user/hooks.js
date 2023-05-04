@@ -3,18 +3,21 @@ import { mobxStore } from "./store";
 import { autorun } from "mobx";
 
 export function useAuthUser() {
-    const signIn = (isAuth, login, password) => {
+    const signIn = (isAuth, login, password, role) => {
         const userInfo = {
             isAuth: isAuth,
             login: login,
-            password: password
+            password: password,
+            role: role
         };
         mobxStore.login(userInfo);
+        //console.log(2);
     };
 
     const signOut = () => {
         localStorage.clear();
-        mobxStore.logout()
+        //console.log(1);
+        mobxStore.logout();
     };
 
     const changePassword = (password) => {

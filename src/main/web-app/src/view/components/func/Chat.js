@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ChatServiceFactory from "../../../model/services/ChatService";
+import classes from './Chat.module.css';
 
 const chatService = ChatServiceFactory.createInstance();
 
 function Chat() {
-    const initialState = {
-        messageValue: "",
-        messages: []
-    }
-    const [state, setState] = useState(initialState);
+    
+    const [messages, setMessages] = useState([]);
+    const [messageValue, setMS] = useState("");
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         chatService.subscribe((message) => {
-            setState({
-                ...state,
-                messages: [...state.messages, message]
-            });
+            setMessages(prevState => [...prevState, message]);
         });
         chatService.open();
         return () => {
@@ -23,37 +20,38 @@ function Chat() {
         }
     }, [])
 
+    useEffect(() => {
+        if (messagesEndRef.current) {
+          messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+        }
+      }, [messages]);
 
     const handleText = (e) => {
-        setState({
-            ...state,
-            messageValue: e.target.value
-        })
+        setMS(e.target.value)
     }
     const send = () => {
-        if (state.messageValue) {
-            chatService.sendMessage(state.messageValue);
-            setState({
-                ...state,
-                messageValue: ""
-            })
+        if (messageValue) {
+            chatService.sendMessage(messageValue);
+            setMS("");
         }
     }
 
 
-
     return (
-        <div>
+        <div className={classes.chat}>
             <p>Чат обсуждения товаров</p>
             <div style={{
                 color: "blue",
+                //background: "white",
                 width: "350px",
                 height: "300px",
                 overflowY: "scroll",
                 overflowX: "auto",
                 //border: "1px solid black",
-            }}>
-                {state.messages.map((message, index) => {
+            }}
+            ref={messagesEndRef}
+            >
+                {messages.map((message, index) => {
 
                     return message.type === "user" ?
                         <div key={index} style={{
@@ -76,10 +74,11 @@ function Chat() {
                             <span style={{
                                 wordWrap: "break-word"
                             }}>&nbsp;{message.text}</span>
-                        </div>
+                        </div>                
                 })}
+
             </div>
-            <input type="text" onChange={handleText} value={state.messageValue}></input>
+            <input type="text" onChange={handleText} value={messageValue}></input>
             <button onClick={send}>{"Отправить"}</button>
         </div>
     )

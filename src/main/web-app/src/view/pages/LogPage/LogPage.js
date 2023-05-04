@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import CLogPanel from "../../components/Elements/CLogPanel/CLogPanel";
-import CButton from "../../components/UI/CButton/CButton";
+import CLogPanel from "../../components/Elements/LogPanel/LogPanel";
+import CButton from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import { useAuthUser } from '../../../mobx/user/hooks';
 import { getAlertConnection } from '../../../model/services/alertService';
-//import { useAuthUser } from "../../../redux/hooks";
+// import { useAuthUser } from "../../../redux/hooks";
 
 
-function CLogPage() {
+function LogPage() {
     const navigate = useNavigate();
 
     const [password, setPassword] = useState("");
@@ -23,7 +23,10 @@ function CLogPage() {
             .then(() => {
                 console.log("ok");
                 getAlertConnection();
-                signIn(true, login, password);
+                const token = localStorage.getItem("token");
+                const payload = token.split(".")[1];
+                const userInfo = JSON.parse(atob(payload));
+                signIn(true, login, password, userInfo["role"]);
                 navigate("/catalog");
             })
             .catch(() => {
@@ -50,4 +53,4 @@ function CLogPage() {
     )
 }
 
-export default CLogPage
+export default LogPage

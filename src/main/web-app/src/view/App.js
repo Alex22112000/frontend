@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "./configs/routes";
-// import { useUserInfo } from "../mobx/user/hooks";
-import { useAuthUser, useUserInfo } from "../redux/hooks";
+import { useUserInfo, useAuthUser } from "../mobx/user/hooks";
+// import { useAuthUser, useUserInfo } from "../redux/hooks";
 import AuthService from "../model/services/authService";
 
 async function checkAuth() {
@@ -19,11 +19,15 @@ function Routing() {
   const [loading, setLoading] = useState(true);
   const { signIn } = useAuthUser();
   useEffect(() => {
+
     const check = async () => {
       try {
         const status = await checkAuth();
         if (status) {
-          signIn(true, AuthService.getLogin(), AuthService.getPassword());
+          const token = localStorage.getItem("token");
+          const payload = token.split(".")[1];
+          const userInfo = JSON.parse(atob(payload));
+          signIn(true, AuthService.getLogin(), AuthService.getPassword(), userInfo["role"]);
         }
       } finally {
         setLoading(false);

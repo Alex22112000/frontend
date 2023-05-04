@@ -10,11 +10,12 @@ export const mobxStore = makeAutoObservable({
     user: {
         ...initialState
     },
-    login: ({ isAuth, login, password }) => {
+    login: ({ isAuth, login, password, role }) => {
         mobxStore.user = {
             isAuth: isAuth,
             login: login,
             password: password,
+            role: role
         }
     },
     logout: () => {

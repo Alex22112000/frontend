@@ -1,0 +1,11 @@
+.catalog {
+    position: absolute;
+    top: 4.5vw;
+    left: 20vw;
+}
+
+.setting {
+    position: absolute;
+    top: 1vw;
+    right: 5vw;
+}

@@ -1,8 +1,8 @@
-import CAddProdPage from "../pages/CAddProdPage/CAddProdPage";
-import CCatalogPage from "../pages/CCatalogPage/CCatalogPage";
-import CDeleteProdPage from "../pages/CDeleteProdPage/CDeleteProdPage";
-import CLogPage from "../pages/CLogPage/CLogPage";
-import CRegPage from "../pages/CRegPage/CRegPage";
+import AddProdPage from "../pages/AddProdPage/AddProdPage";
+import CatalogPage from "../pages/CatalogPage/CatalogPage";
+import DeleteProdPage from "../pages/DeleteProdPage/DeleteProdPage";
+import LogPage from "../pages/LogPage/LogPage";
+import RegPage from "../pages/RegPage/RegPage";
 import SettingPage from "../pages/SettingPage/SettingPage";
 import Test from "../pages/Test";
 import TestPage from "../pages/TestPage";
@@ -10,15 +10,15 @@ import TestPage from "../pages/TestPage";
 export const authRoutes = [
     {
         path: "/catalog",
-        component: <CCatalogPage />
+        component: <CatalogPage />
     },
     {
         path: "/products/add",
-        component: <CAddProdPage />
+        component: <AddProdPage />
     },
     {
         path: "/products/delete",
-        component: <CDeleteProdPage />
+        component: <DeleteProdPage />
     },
     {
         path: "/setting",
@@ -29,11 +29,11 @@ export const authRoutes = [
 export const publicRoutes = [
     {
         path: "/",
-        component: <CLogPage />
+        component: <LogPage />
     },
     {
         path: "/register",
-        component: <CRegPage />
+        component: <RegPage />
     },
     {
         path: "/test",

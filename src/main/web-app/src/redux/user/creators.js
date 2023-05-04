@@ -6,13 +6,14 @@ const logOut = () => {
     }
 }
 
-const logIn = ({isAuth, login, password }) => {
+const logIn = ({isAuth, login, password, role }) => {
     return {
         type: LOGIN,
         payload: {
             isAuth,
             login,
-            password
+            password,
+            role
         }
     }
 }

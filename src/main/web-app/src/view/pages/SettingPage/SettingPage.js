@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import CButton from "../../components/UI/CButton/CButton";
+import CButton from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import "./SettingPage.css"
-// import { deleteUser } from '../../../redux/user/creators'
-// import { useUserInfo } from '../../../mobx/user/hooks';
-import { useAuthUser, useUserInfo } from "../../../redux/hooks";
+//import { deleteUser } from '../../../redux/user/creators'
+import { useAuthUser, useUserInfo } from '../../../mobx/user/hooks';
+//import { useAuthUser, useUserInfo } from "../../../redux/hooks";
 
 
 function SettingPage(props) {
@@ -18,6 +18,7 @@ function SettingPage(props) {
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [setMessage] = useState("");
+    const [message] = useState("");
 
     return (
         <>
@@ -32,6 +33,11 @@ function SettingPage(props) {
                     changePassword(newPassword);
                     }}>{"Изменить пароль"}</CButton>
                 <br />
+                <CButton onClick={() => {signOut()}}>Выйти из аккаунта</CButton>
+                <br />
+                <CButton onClick={() => navigate('/catalog')}>Назад</CButton>
+            </div >
+            <div className="delpanel">
                 <CButton onClick={() => {
                     //dispatch(deleteUser());
                     AuthService.deleteAccount()
@@ -45,9 +51,7 @@ function SettingPage(props) {
                         });
                     navigate('/');
                 }}>Удалить аккаунт</CButton>
-                <br />
-                <CButton onClick={() => navigate('/catalog')}>Назад</CButton>
-            </div >
+            </div>
         </>
     )
 }
