@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import CLogPanel from "../../components/Elements/LogPanel/LogPanel";
-import CButton from "../../components/UI/Button/Button";
+import LogPanel from "../../components/Elements/LogPanel/LogPanel";
+import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import { useAuthUser } from '../../../mobx/user/hooks';
 import { getAlertConnection } from '../../../model/services/alertService';
@@ -44,10 +44,10 @@ function LogPage() {
 
     return (
         <div align="center" className="lpage">
-            <CLogPanel onChange={onLogPanelChange} />
-            <CButton onClick={auth}>Войти</CButton>
+            <LogPanel onChange={onLogPanelChange} />
+            <Button onClick={auth}>Войти</Button>
             <br />
-            <CButton onClick={toRegistration}>Регистрация</CButton>
+            <Button onClick={toRegistration}>Регистрация</Button>
             {message && <><br />{message}</>}
         </div>
     )

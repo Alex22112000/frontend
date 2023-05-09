@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CRegPanel from '../../components/Elements/RegPanel/RegPanel';
-import CButton from "../../components/UI/Button/Button";
+import RegPanel from '../../components/Elements/RegPanel/RegPanel';
+import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,11 +42,11 @@ function RegPage() {
 
     return (
         <div align="center" className="rpage">
-            <CRegPanel onChange={onRegPanelChange} />
+            <RegPanel onChange={onRegPanelChange} />
 
-            <CButton onClick={register}>Зарегистрироваться</CButton>
+            <Button onClick={register}>Зарегистрироваться</Button>
             <br />
-            <CButton onClick={toAuth}>Назад</CButton>
+            <Button onClick={toAuth}>Назад</Button>
             {state.message && <><br />{state.message}</>}
         </div>
     )

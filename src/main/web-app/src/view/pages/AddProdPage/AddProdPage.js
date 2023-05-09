@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CTextBar from '../../components/UI/TextBar/TextBar'
-import CButton from '../../components/UI/Button/Button'
+import TextBar from '../../components/UI/TextBar/TextBar'
+import Button from '../../components/UI/Button/Button'
 import CatalogService from '../../../model/services/catalogService';
 import { useNavigate } from 'react-router-dom';
 import "./AddProdPage.css"
@@ -46,21 +46,21 @@ function AddProdPage() {
 
     return (
         <ul className="panel">
-            <li>Название: <br /><CTextBar value={state.name} onChange={e => setState({...state, name: e.currentTarget.value })} /></li>
+            <li>Название: <br /><TextBar value={state.name} onChange={e => setState({...state, name: e.currentTarget.value })} /></li>
             <br />
 
-            <li>Стоимость:<br /><CTextBar value={state.cost} onChange={e => setState({...state, cost: e.currentTarget.value })} /></li>
+            <li>Стоимость:<br /><TextBar value={state.cost} onChange={e => setState({...state, cost: e.currentTarget.value })} /></li>
             <br />
 
-            <li>Ссылка на изображение:<br /><CTextBar value={state.img} onChange={e => setState({...state, img: e.currentTarget.value })} /></li>
+            <li>Ссылка на изображение:<br /><TextBar value={state.img} onChange={e => setState({...state, img: e.currentTarget.value })} /></li>
             <br />
 
-            <li>Количество:<br /><CTextBar value={state.count} onChange={e => setState({...state, count: e.currentTarget.value })} /></li>
+            <li>Количество:<br /><TextBar value={state.count} onChange={e => setState({...state, count: e.currentTarget.value })} /></li>
             <br />
-            <li><CButton onClick={addProduct}>Добавить</CButton></li>
+            <li><Button onClick={addProduct}>Добавить</Button></li>
             <br />
 
-            <li><CButton onClick={back}>Назад</CButton></li>
+            <li><Button onClick={back}>Назад</Button></li>
             <div>{state.message && <><br />{state.message}</>}</div>
         </ul >
     )

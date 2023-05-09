@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import CBasketPanel from '../../components/Elements/BasketPanel/BasketPanel';
-import CCatElement from '../../components/Elements/CatElement/CatElement';
-import CButton from "../../components/UI/Button/Button";
+import BasketPanel from '../../components/Elements/BasketPanel/BasketPanel';
+import CatElement from '../../components/Elements/CatElement/CatElement';
+import Button from "../../components/UI/Button/Button";
 import CatalogService from '../../../model/services/catalogService';
 import Chat from "../../components/func/Chat";
 import { useNavigate } from 'react-router-dom';
@@ -47,13 +47,13 @@ function CatalogPage(props) {
 
     return (
         <>
-            <CBasketPanel products={state.cartProducts} />
-            <CButton onClick={addProduct}>Добавить продукт</CButton>
+            <BasketPanel products={state.cartProducts} />
+            <Button onClick={addProduct}>Добавить продукт</Button>
             <br />
-            <CButton onClick={deleteProduct}>Удалить продукт</CButton>
+            <Button onClick={deleteProduct}>Удалить продукт</Button>
 
             <div className="setting">
-                <CButton onClick={settingUser}>Настройки</CButton>
+                <Button onClick={settingUser}>Настройки</Button>
             </div>
 
             <div className="catalog">
@@ -62,7 +62,7 @@ function CatalogPage(props) {
                     //console.log(product.product_name)
                     //console.log(product.product_cost)
                     //console.log(product.product_name + product.product_cost)
-                    return <CCatElement product={product} key={product.product_name + product.product_cost} onClick={() => addToCart(product)} />
+                    return <CatElement product={product} key={product.product_name + product.product_cost} onClick={() => addToCart(product)} />
                 })}
             </div>
 

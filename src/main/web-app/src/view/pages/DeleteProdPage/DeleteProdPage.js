@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CTextBar from '../../components/UI/TextBar/TextBar'
-import CButton from '../../components/UI/Button/Button'
+import TextBar from '../../components/UI/TextBar/TextBar'
+import Button from '../../components/UI/Button/Button'
 import CatalogService from '../../../model/services/catalogService';
 import { useNavigate } from 'react-router-dom';
 import "./DeleteProdPage.css"
@@ -39,13 +39,13 @@ function DeleteProdPage() {
 
     return (
         <ul className="panel">
-            <li className="nm">Название:<br /><CTextBar value={state.name} onChange={(e) => setState({ ...state, name: e.currentTarget.value })} /></li>
+            <li className="nm">Название:<br /><TextBar value={state.name} onChange={(e) => setState({ ...state, name: e.currentTarget.value })} /></li>
             <br />
 
-            <li className="bt"><CButton onClick={deleteProduct}>Удалить</CButton></li>
+            <li className="bt"><Button onClick={deleteProduct}>Удалить</Button></li>
             <br />
 
-            <li className="btBack"><CButton onClick={back}>Назад</CButton></li>
+            <li className="btBack"><Button onClick={back}>Назад</Button></li>
 
             <div className="message">{state.message && <><br /> {state.message}</>}</div>
         </ul>

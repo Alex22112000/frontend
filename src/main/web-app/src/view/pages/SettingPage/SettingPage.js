@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import CButton from "../../components/UI/Button/Button";
+import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import "./SettingPage.css"
 //import { deleteUser } from '../../../redux/user/creators'
@@ -23,22 +23,22 @@ function SettingPage(props) {
     return (
         <>
             <div className="panel">
-                <CButton onClick={() => setUsername(userInfo.login)}>{username === "" ? "Показать имя пользователя" : username}</CButton>
+                <Button onClick={() => setUsername(userInfo.login)}>{username === "" ? "Показать имя пользователя" : username}</Button>
                 <br />
-                <CButton onClick={() => setPassword(userInfo.password)}>{password === "" ? "Показать пароль" : password}</CButton>
+                <Button onClick={() => setPassword(userInfo.password)}>{password === "" ? "Показать пароль" : password}</Button>
                 <br />
                 <input type="password" placeholder='Введите новый пароль' onChange={(e) => setNewPassword(e.target.value)}></input>
-                <CButton onClick={() => {
+                <Button onClick={() => {
                     AuthService.changePassword(userInfo.login, newPassword);
                     changePassword(newPassword);
-                    }}>{"Изменить пароль"}</CButton>
+                    }}>{"Изменить пароль"}</Button>
                 <br />
-                <CButton onClick={() => {signOut()}}>Выйти из аккаунта</CButton>
+                <Button onClick={() => {signOut()}}>Выйти из аккаунта</Button>
                 <br />
-                <CButton onClick={() => navigate('/catalog')}>Назад</CButton>
+                <Button onClick={() => navigate('/catalog')}>Назад</Button>
             </div >
             <div className="delpanel">
-                <CButton onClick={() => {
+                <Button onClick={() => {
                     //dispatch(deleteUser());
                     AuthService.deleteAccount()
                         .then(() => {
@@ -50,7 +50,7 @@ function SettingPage(props) {
                             setMessage("Ошибка удаления аккаунта");
                         });
                     navigate('/');
-                }}>Удалить аккаунт</CButton>
+                }}>Удалить аккаунт</Button>
             </div>
         </>
     )
