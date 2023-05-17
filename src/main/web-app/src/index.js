@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 // import { buildProvider } from './redux/store.js';
-import { buildProvider } from './mobx/user/store.js';
+import { buildProvider } from './state/mobx/user/store.js';
 import Routing from './view/App.js';
 import './index.css'
 

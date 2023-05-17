@@ -3,7 +3,7 @@ import BasketPanel from '../../components/Elements/BasketPanel/BasketPanel';
 import CatElement from '../../components/Elements/CatElement/CatElement';
 import Button from "../../components/UI/Button/Button";
 import CatalogService from '../../../model/services/catalogService';
-import Chat from "../../components/func/Chat";
+import Chat from "../../components/Elements/Chat/Chat";
 import { useNavigate } from 'react-router-dom';
 import "./CatalogPage.css"
 
@@ -24,7 +24,7 @@ function CatalogPage(props) {
             })
         };
         getData();
-    }, [])
+    }, [state])
 
     const addToCart = (product) => {
         setState((prev) => ({
@@ -59,10 +59,10 @@ function CatalogPage(props) {
             <div className="catalog">
                 {state.products.map((product) => {
                     console.log(product);
-                    //console.log(product.product_name)
-                    //console.log(product.product_cost)
-                    //console.log(product.product_name + product.product_cost)
-                    return <CatElement product={product} key={product.product_name + product.product_cost} onClick={() => addToCart(product)} />
+                    //console.log(product.name)
+                    //console.log(product.cost)
+                    //console.log(product.pname + product.image.pngcost)
+                    return <CatElement product={product} key={product.name + product.cost} onClick={() => addToCart(product)} />
                 })}
             </div>
 

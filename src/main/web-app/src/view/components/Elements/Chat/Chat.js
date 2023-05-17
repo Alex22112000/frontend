@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import ChatServiceFactory from "../../../model/services/ChatService";
+import ChatServiceFactory from "../../../../model/services/ChatService";
 import classes from './Chat.module.css';
 
 const chatService = ChatServiceFactory.createInstance();

@@ -2,10 +2,10 @@ import config from '../../view/configs/config.json'
 
 class AuthService {
     static async signIn(login, password) {
-        const response = await fetch(config.apiUrl + "/api/auth", {
+        const response = await fetch(config.apiUrl + "/api/user/auth", {
             method: "POST",
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify([login, password]),
+            body: JSON.stringify({login, password}),
         });
 
         if(response.ok){
@@ -20,10 +20,10 @@ class AuthService {
     }
 
     static async signUp(login, password) {
-        const response = await fetch(config.apiUrl + "/api/reg", {
+        const response = await fetch(config.apiUrl + "/api/user/reg", {
             method: "POST",
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify([login, password]),
+            body: JSON.stringify({login, password}),
         });
 
         console.log(response);
@@ -41,10 +41,10 @@ class AuthService {
     }
 
     static async changePassword(login, newPassword){
-        const response = await fetch(config.apiUrl + "/api/changePassword", {
+        const response = await fetch(config.apiUrl + "/api/user/changePassword", {
             method: "POST",
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify([login, newPassword]),
+            body: JSON.stringify({login, password: newPassword}),
         });
         if(response.ok){
             response.json().then((token) => {
@@ -58,10 +58,10 @@ class AuthService {
     }
 
     static async deleteAccount(){
-        const response = await fetch(config.apiUrl + "/api/deleteUser", {
+        const response = await fetch(config.apiUrl + "/api/user/delete", {
             method: "POST",
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify([AuthService.getLogin()]),
+            body: JSON.stringify({login: AuthService.getLogin()}),
         });
         if(response.ok){
             return Promise.resolve();

@@ -4,8 +4,6 @@ import DeleteProdPage from "../pages/DeleteProdPage/DeleteProdPage";
 import LogPage from "../pages/LogPage/LogPage";
 import RegPage from "../pages/RegPage/RegPage";
 import SettingPage from "../pages/SettingPage/SettingPage";
-import Test from "../pages/Test";
-import TestPage from "../pages/TestPage";
 
 export const authRoutes = [
     {
@@ -34,13 +32,5 @@ export const publicRoutes = [
     {
         path: "/register",
         component: <RegPage />
-    },
-    {
-        path: "/test",
-        component: <TestPage />
-    },
-    {
-        path: "/page",
-        component: <Test />
     }
 ]

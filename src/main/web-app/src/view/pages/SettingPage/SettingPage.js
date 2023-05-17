@@ -4,7 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import "./SettingPage.css"
 //import { deleteUser } from '../../../redux/user/creators'
-import { useAuthUser, useUserInfo } from '../../../mobx/user/hooks';
+import { useAuthUser, useUserInfo } from '../../../state/mobx/user/hooks';
 //import { useAuthUser, useUserInfo } from "../../../redux/hooks";
 
 
@@ -17,8 +17,6 @@ function SettingPage(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [setMessage] = useState("");
-    const [message] = useState("");
 
     return (
         <>
@@ -47,7 +45,6 @@ function SettingPage(props) {
                         })
                         .catch(() => {
                             console.log('Что-то пошло не так при удалении аккаунта');
-                            setMessage("Ошибка удаления аккаунта");
                         });
                     navigate('/');
                 }}>Удалить аккаунт</Button>

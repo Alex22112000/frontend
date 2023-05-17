@@ -14,8 +14,8 @@ class BasketPanel extends React.Component {
                 <div className="dropdownContent">
                     <div className="dropdownContentLineMessage">
                         {this.props.products.map((product, idx) => {
-                            return <React.Fragment key={product.product_id}>
-                                {`${product.product_name}    ${product.product_cost} руб`} <br /><br />
+                            return <React.Fragment key={product.id}>
+                                {`${product.name}    ${product.cost} руб`} <br /><br />
                             </React.Fragment>
                         })}
                     </div>

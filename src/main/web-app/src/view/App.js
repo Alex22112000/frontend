@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "./configs/routes";
-import { useUserInfo, useAuthUser } from "../mobx/user/hooks";
+import { useUserInfo, useAuthUser } from "../state/mobx/user/hooks";
 // import { useAuthUser, useUserInfo } from "../redux/hooks";
 import AuthService from "../model/services/authService";
 
@@ -34,7 +34,7 @@ function Routing() {
       }
     }
     check();
-  }, []);
+  }, [signIn]);
 
   if (loading) {
     return <div>
