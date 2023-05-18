@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
 import "./SettingPage.css"
-//import { deleteUser } from '../../../redux/user/creators'
-import { useAuthUser, useUserInfo } from '../../../state/mobx/user/hooks';
-//import { useAuthUser, useUserInfo } from "../../../redux/hooks";
+//import { deleteUser } from '../../../redux/user/creators';
+//import { useAuthUser, useUserInfo } from '../../../state/mobx/user/hooks';
+import { useAuthUser, useUserInfo } from "../../../state/redux/hooks";
 
 
 function SettingPage(props) {

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import LogPanel from "../../components/Elements/LogPanel/LogPanel";
 import Button from "../../components/UI/Button/Button";
 import AuthService from '../../../model/services/authService';
-import { useAuthUser } from '../../../state/mobx/user/hooks';
+//import { useAuthUser } from '../../../state/mobx/user/hooks';
+import { useAuthUser } from "../../../state/redux/hooks";
 import { getAlertConnection } from '../../../model/services/alertService';
-// import { useAuthUser } from "../../../redux/hooks";
 
 
 function LogPage() {

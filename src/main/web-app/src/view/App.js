@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "./configs/routes";
-import { useUserInfo, useAuthUser } from "../state/mobx/user/hooks";
-// import { useAuthUser, useUserInfo } from "../redux/hooks";
+//import { useUserInfo, useAuthUser } from "../state/mobx/user/hooks";
+import { useAuthUser, useUserInfo } from "../state/redux/hooks";
 import AuthService from "../model/services/authService";
 
 async function checkAuth() {
