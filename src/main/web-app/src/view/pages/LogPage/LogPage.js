@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import LogPanel from "../../components/Elements/LogPanel/LogPanel";
 import Button from "../../components/UI/Button/Button";
-import AuthService from '../../../model/services/authService';
-//import { useAuthUser } from '../../../state/mobx/user/hooks';
 import { useAuthUser } from "../../../state/redux/hooks";
-import { getAlertConnection } from '../../../model/services/alertService';
-
 
 function LogPage() {
     const navigate = useNavigate();
@@ -14,25 +10,17 @@ function LogPage() {
     const [password, setPassword] = useState("");
     const [login, setLogin] = useState("");
     const [message, setMessage] = useState("");
-    const {
-        signIn
-    } = useAuthUser();
+    const { signIn } = useAuthUser();
 
-    async function auth() {
-        await AuthService.signIn(login, password)
-            .then(() => {
-                console.log("ok");
-                getAlertConnection();
-                const token = localStorage.getItem("token");
-                const payload = token.split(".")[1];
-                const userInfo = JSON.parse(atob(payload));
-                signIn(true, login, password, userInfo["role"]);
-                navigate("/catalog");
-            })
-            .catch(() => {
-                setMessage("Неправильный логин или пароль")
-                console.log("error");
-            })
+    function auth() {
+        try {
+            signIn(login, password);
+            navigate("/catalog");
+        } catch (error) {
+            console.log(error);
+            setMessage("Неправильный логин или пароль");
+            console.log("error");
+        }
     }
 
     const toRegistration = () => navigate("/register")
@@ -53,4 +41,4 @@ function LogPage() {
     )
 }
 
-export default LogPage
+export default LogPage;

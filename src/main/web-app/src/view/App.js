@@ -24,10 +24,7 @@ function Routing() {
       try {
         const status = await checkAuth();
         if (status) {
-          const token = localStorage.getItem("token");
-          const payload = token.split(".")[1];
-          const userInfo = JSON.parse(atob(payload));
-          signIn(true, AuthService.getLogin(), AuthService.getPassword(), userInfo["role"]);
+          signIn(AuthService.getLogin(), AuthService.getPassword());
         }
       } finally {
         setLoading(false);
@@ -50,6 +47,7 @@ function Routing() {
 function App() {
   const userInfo = useUserInfo();
   const redirect = <Navigate to="/" replace />
+  console.log(`IS AUTH: ${userInfo.isAuth}`);
   return (
     <Routes>
       {
